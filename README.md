@@ -22,3 +22,5 @@ Main project is in src directory. gif.rb has an example how to run.
 
 ####Other examples
 ![Jack](examples/jack.jpg.gif)
+
+![Sea](examples/static-sea.jpg)
