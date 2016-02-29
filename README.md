@@ -19,3 +19,6 @@ Main project is in src directory. gif.rb has an example how to run.
 
 ####Output
 ![Dog](examples/dog.gif)
+
+####Other examples
+![Jack](examples/jack.jpg.gif)

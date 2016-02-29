@@ -17,8 +17,9 @@ module.exports = function(input, output, maxShifts, maxIters, maxDist){
     var MAX_SHIFTS = maxShifts || 100;
     //max shift value
     var MAX_FACTOR = maxIters || 200;
-    //max column width for shifting
-    var MAX_DISTANCE = maxDist || 100;
+    //column width for shifting
+    var MIN_DISTANCE = 40;
+    var MAX_DISTANCE = maxDist || 200;
 
     console.log('- max: MAX_SHIFTS '+ MAX_SHIFTS + ' MAX_FACTOR ' + MAX_FACTOR + ' MAX_DISTANCE ' + MAX_DISTANCE);
 
@@ -40,7 +41,7 @@ module.exports = function(input, output, maxShifts, maxIters, maxDist){
 
     function getDistance(width, x){
         var maxDistance = width - x;
-        return Utils.randomInt(1, Math.min(maxDistance, MAX_DISTANCE));
+        return Utils.randomInt(Math.min(MIN_DISTANCE, Math.min(maxDistance, MAX_DISTANCE)), Math.min(maxDistance, MAX_DISTANCE));
     }
 
     //read image
