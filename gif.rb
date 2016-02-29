@@ -1,5 +1,5 @@
-#cli hack, see src for main project
-
+#CLI hack, see src for main node project. It's messy here but you get the idea.
+#Usage: ruby gif.rb <image.jpg> <steps> <delay> <shifts> <factor> <distance>
 input = ARGV[0] || "examples/goat.jpg"
 steps = ARGV[1] || 10
 delay = ARGV[2] || 10
@@ -14,7 +14,7 @@ p "Glitching #{input} to #{animation_output}"
 
   output = "gen/out-#{index}.jpg";
   p "Generating #{output}"
-  p `node src/cli.js #{input} #{output}`
+  p `node src/cli.js #{input} #{output} #{ARGV[3]} #{ARGV[4]} #{ARGV[5]}`
 
 end
 

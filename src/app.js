@@ -4,20 +4,30 @@ var fs = require('fs');
 var Utils = require('./utils.js');
 var Nudge = require('./nudge.js')
 
+/**
+ * @param input
+ * @param output
+ * @param maxShifts
+ * @param maxIters
+ * @param maxDist
+ */
 module.exports = function(input, output, maxShifts, maxIters, maxDist){
 
+    //how many times should we shift an image
     var MAX_SHIFTS = maxShifts || 100;
-    var MAX_ITERATIONS = maxIters || 200;
+    //max shift value
+    var MAX_FACTOR = maxIters || 200;
+    //max column width for shifting
     var MAX_DISTANCE = maxDist || 100;
 
-    console.log('- max: MAX_SHIFTS '+ MAX_SHIFTS + ' MAX_ITERATIONS ' + MAX_ITERATIONS + ' MAX_DISTANCE ' + MAX_DISTANCE);
+    console.log('- max: MAX_SHIFTS '+ MAX_SHIFTS + ' MAX_FACTOR ' + MAX_FACTOR + ' MAX_DISTANCE ' + MAX_DISTANCE);
 
     function getShifts(){
         return Utils.randomInt(1, MAX_SHIFTS);
     }
 
     function getFactor(){
-        var factor = Utils.randomInt(1, MAX_ITERATIONS);
+        var factor = Utils.randomInt(1, MAX_FACTOR);
         if(Utils.randomInt(1,2) == 2){
             factor *= -1;
         }
