@@ -4,7 +4,11 @@ input = ARGV[0] || "examples/goat.jpg"
 steps = ARGV[1] || 10
 delay = ARGV[2] || 10
 
+animation_output = input + ".gif"
+
 `mkdir -p gen`
+
+p "Glitching #{input} to #{animation_output}"
 
 (0..steps.to_i).each do |index|
 
@@ -15,5 +19,5 @@ delay = ARGV[2] || 10
 end
 
 p "Creating gif"
-`convert -delay #{delay} -loop 0 gen/out-*.jpg gen/animation-#{Time.now.to_i}.gif`
+`convert -delay #{delay} -loop 0 gen/out-*.jpg #{animation_output}`
 `rm gen/*.jpg`
