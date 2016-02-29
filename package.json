@@ -1,0 +1,10 @@
+{
+  "name": "pixel-nudge",
+  "dependencies": {
+    "get-pixels": "^3.3.0",
+    "ndarray": "^1.0.18",
+    "random-js": "^1.0.8",
+    "save-pixels": "^2.3.0",
+    "zeros": "^1.0.0"
+  }
+}
