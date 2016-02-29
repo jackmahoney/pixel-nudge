@@ -1,10 +1,10 @@
-//var array = [
-// [ 0, 1, 2, 3],
-// [ 4, 5, 6, 7],
-// [ 8, 9,10,11],
-// [12,13,14,15]
-//];
-
+/**
+ * Swap the values of two cells
+ * @param arr
+ * @param row1
+ * @param row2
+ * @param col
+ */
 function swapColValues(arr, row1, row2, col){
 	var val1 = arr[row1][col];
 	var val2 = arr[row2][col];
@@ -45,17 +45,6 @@ module.exports = {
                 }
             }
         }
-        return arr;
-    },
-
-    nudgeColRange2: function(arr, x1, count, factor){
-        //if(x1 < 0 || x1 > arr.length -1 || x1 + count > arr.length){
-        //    throw('Col range is outside of array bounds');
-        //}
-        //for(var i = x1; x1 < x1 + count; i++){
-        //    this.nudgeCol(arr, x1 + i, factor);
-        //}
-        this.nudgeCol(arr, 100, -30);
         return arr;
     }
 };

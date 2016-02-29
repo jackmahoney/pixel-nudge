@@ -1,12 +1,12 @@
 #cli hack, see src for main project
 
 input = ARGV[0] || "examples/goat.jpg"
-steps = ARGV[1].to_i || 10
-delay = ARGV[2] || 20
+steps = ARGV[1] || 10
+delay = ARGV[2] || 10
 
 `mkdir -p gen`
 
-(0..steps).each do |index|
+(0..steps.to_i).each do |index|
 
   output = "gen/out-#{index}.jpg";
   p "Generating #{output}"
