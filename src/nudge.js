@@ -1,13 +1,13 @@
 var shift = require('./shift.js');
 
-//TODO make more efficient by taking a slice, shuffling it and putting it back in place
 module.exports = {
 
     /**
+     * Nudge a range of columns in a two dimensional array up or down
      * @param arr Array to nudge
      * @param x1 starting index
      * @param distance distance from starting index
-     * @param factor
+     * @param factor signed integer number of shifts up or down
      * @returns {*}
      */
     nudgeColRange: function (arr, x1, distance, factor){
