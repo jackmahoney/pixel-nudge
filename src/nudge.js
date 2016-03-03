@@ -18,7 +18,7 @@ module.exports = {
 
         //ensure we don't go outside of array bounds
         if(x1 + distance > arr[0].length){
-           distance = arr.length - x1;
+           distance = arr[0].length - x1;
         }
 
         //create distance number of arrays
