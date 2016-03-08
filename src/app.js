@@ -2,7 +2,7 @@ var getPixels = require('get-pixels');
 var savePixels = require('save-pixels');
 var fs = require('fs');
 var Utils = require('./utils.js');
-var Nudge = require('./nudge.js')
+var AT = require('array-translate');
 
 /**
  * @param input
@@ -11,67 +11,84 @@ var Nudge = require('./nudge.js')
  * @param maxIters
  * @param maxDist
  */
-module.exports = function(input, output, maxShifts, maxIters, maxDist){
 
-    //how many times should we shift an image
-    var MAX_SHIFTS = maxShifts || 100;
-    //max shift value
-    var MAX_FACTOR = maxIters || 200;
-    //column width for shifting
-    var MIN_DISTANCE = 40;
-    var MAX_DISTANCE = maxDist || 200;
+class App{
 
-    console.log('- max: MAX_SHIFTS '+ MAX_SHIFTS + ' MAX_FACTOR ' + MAX_FACTOR + ' MAX_DISTANCE ' + MAX_DISTANCE);
+    /**
+     * Load an image for processing
+     * @param input {string} path
+     * @param callback {function} callback
+     */
+    loadAsync(input, callback){
+        getPixels(input, (err, pixels) => {
 
-    function getShifts(){
-        return Utils.randomInt(1, MAX_SHIFTS);
+            if(err) {
+                throw("Bad image path");
+            }
+
+            //get ndarray as pixels
+            this.pixVals = Utils.nd_to_pixVal(pixels);
+
+            callback();
+        });
     }
 
-    function getFactor(){
-        var factor = Utils.randomInt(1, MAX_FACTOR);
-        if(Utils.randomInt(1,2) == 2){
-            factor *= -1;
-        }
-        return factor;
-    }
+    shiftRows(shiftCount){
 
-    function getX(width){
-        return Utils.randomInt(0, width - 1);
-    }
-
-    function getDistance(width, x){
-        var maxDistance = width - x;
-        return Utils.randomInt(Math.min(MIN_DISTANCE, Math.min(maxDistance, MAX_DISTANCE)), Math.min(maxDistance, MAX_DISTANCE));
-    }
-
-    //read image
-    getPixels(input, function(err, pixels) {
-
-        if(err) {
-            console.log("Bad image path")
-            return;
+        for(var i = 0 ; i < shiftCount; i ++){
+            var constraint = this.pixVals.length;
+            var y1 = Utils.randomInt(0, constraint);
+            var dist = Utils.randomInt(0, constraint);
+            var fact = Utils.randomInt(100, 500);
+            this.pixVals = AT.translateRows(this.pixVals, y1, dist, fact);
         }
 
-        //get as pixels
-        var pixVals = Utils.nd_to_pixVal(pixels);
+    };
 
-        var shifts = getShifts();
-        console.log('- shifts = '+ shifts);
-        for(var i = 0 ; i < shifts; i ++){
-            var w = pixels.shape[0];
-            var x = getX(w);
-            var dist = getDistance(w, x);
-            var fact = getFactor();
-            pixVals = Nudge.nudgeColRange(pixVals, x, dist, fact);
+    shiftCols(shiftCount){
+        for(var i = 0 ; i < shiftCount; i ++){
+            var constraint = this.pixVals[0].length;
+            var x1 = Utils.randomInt(0, constraint);
+            var dist = Utils.randomInt(0, constraint);
+            var fact = Utils.randomInt(100, 500);
+            this.pixVals = AT.translateColumns(this.pixVals, x1, dist, fact);
         }
-        var ndShifted = Utils.pixVal_to_nd(pixVals);
+    };
+
+    shiftRandom(shiftCount){
+        for(var i = 0 ; i < shiftCount; i ++){
+            if(Utils.randomBool()){
+                this.shiftCols(1);
+            }
+            else{
+                this.shiftRows(1);
+            }
+        }
+    };
+
+    /**
+     * Write the output to an image
+     * @param output
+     */
+    write(output){
+        //convert to ndarray for saving
+        var ndShifted = Utils.pixVal_to_nd(this.pixVals);
 
         //save image
-        savePixels(ndShifted, "png").pipe(fs.createWriteStream(output));
+        var writeStream = fs.createWriteStream(output);
 
-    });
+        var extension = output.match(/\.[0-9a-z]+$/)[0];
 
-};
+        savePixels(ndShifted, extension).pipe(writeStream);
+    }
+
+
+}
+
+
+
+
+module.exports = App;
 
 
 

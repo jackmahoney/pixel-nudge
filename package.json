@@ -4,8 +4,11 @@
     "test": "mocha"
   },
   "dependencies": {
+    "array-translate": "0.0.1",
+    "commander": "^2.9.0",
     "get-pixels": "^3.3.0",
     "ndarray": "^1.0.18",
+    "os-tmpdir": "^1.0.1",
     "random-js": "^1.0.8",
     "save-pixels": "^2.3.0",
     "zeros": "^1.0.0"

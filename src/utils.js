@@ -34,5 +34,9 @@ module.exports = {
 
     randomInt: function(min, max){
         return random.integer(min, max);
+    },
+
+    randomBool: function(){
+        return random.integer(0, 1) === 1;
     }
 }
