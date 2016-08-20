@@ -1,8 +1,8 @@
 var getPixels = require('get-pixels');
 var savePixels = require('save-pixels');
 var fs = require('fs');
-var Utils = require('./utils.js');
 var AT = require('array-translate');
+var Utils = require('./utils.js');
 
 /**
  * @param input
